@@ -39,5 +39,11 @@ public class EmprestimoDAO {
 				.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
 			.list();
 		return emprestimos;
+	}
+	public Emprestimo procuraPorId(Long id) {
+		return (Emprestimo) this.session
+			.createCriteria(Emprestimo.class)
+			.add(Restrictions.eq("id", id))
+			.uniqueResult();
 	} 
 }

@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,5 +38,7 @@ public class DevolveLivroServlet extends HttpServlet{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		RequestDispatcher rd = req.getRequestDispatcher("/adicionado.jsp");
+		rd.forward(req, resp);
 	}
 }

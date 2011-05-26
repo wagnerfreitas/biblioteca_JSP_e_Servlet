@@ -49,11 +49,7 @@ public class Biblioteca {
 		emprestimoDAO.salva(emprestimo);
 	}	
 	public void recebeLivro(Long id, Calendar dataDaDevolucao) throws SQLException{
-		Livro livro = new Livro();
-		livroDAO.procuraPorId(id);
-		livro.setEmprestado(false);
-		livroDAO.salva(livro);
-		Emprestimo emprestimo = new Emprestimo();
+		Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
 		emprestimo.setDataDeDevolucao(dataDaDevolucao);
 		emprestimoDAO.atualiza(emprestimo);
 	}
