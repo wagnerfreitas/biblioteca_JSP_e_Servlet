@@ -20,14 +20,23 @@
 					var text = $(this).parent().parent().children(':nth-child(2)').text()
 					$('#IDLivro').val(text);
 				});
+				
+				$('.devolver').click(function() {
+					$('#devolverLivro').show();
+					var text = $(this).parent().parent().children(':nth-child(2)').text()
+					$('#IDLivro_devolver').val(text);
+				});
 			});
 		</script>
+		
 	</head>
 	<style>
 		#emprestarLivro {
 			display: none;
 		}
-		
+		#devolverLivro{
+			display:none;
+		}
 		button {
 				width: 100px;
 		}
@@ -102,6 +111,33 @@
 							<input type="submit" value="Enviar" />
 							<input type="hidden" name="emprestarlivro" value="emprestarlivro" />
 						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="devolverLivro">
+			<form method="post" action="devolvelivro">
+			<h1>Devolver Livro</h1>
+				<table>
+					<tr>
+						<td>
+							ID do Livro: 
+						</td>
+						<td>
+							<input type="text" readonly id="IDLivro_devolver" name="IDEmprestimo" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Digite a Data de Entrega: 
+						</td>
+						<td>
+							<input type="text" name="dataDeEntrega" />
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Enviar" /></td>
 					</tr>
 				</table>
 			</form>

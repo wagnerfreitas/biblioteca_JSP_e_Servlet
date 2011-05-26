@@ -43,7 +43,7 @@ public class EmprestimoDAO {
 	public Emprestimo procuraPorId(Long id) {
 		return (Emprestimo) this.session
 			.createCriteria(Emprestimo.class)
-			.add(Restrictions.eq("id", id))
+				.add(Restrictions.eq("id", id))
 			.uniqueResult();
 	} 
 }

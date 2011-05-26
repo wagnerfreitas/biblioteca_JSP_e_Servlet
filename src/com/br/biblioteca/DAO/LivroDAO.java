@@ -27,9 +27,11 @@ public class LivroDAO {
 		.list();
 	}
 	public Livro procuraPorId(Long id){
-		return (Livro) this.session.createCriteria(Livro.class).add(Restrictions.eq("id", id));
+		return (Livro) this.session.createCriteria(Livro.class)
+		.add(Restrictions.eq("id", id))
+		.uniqueResult();
 	}
-	public void update(Livro livro){
+	public void atualiza(Livro livro){
 		this.session.beginTransaction();
 		this.session.update(livro);
 		this.session.getTransaction().commit();

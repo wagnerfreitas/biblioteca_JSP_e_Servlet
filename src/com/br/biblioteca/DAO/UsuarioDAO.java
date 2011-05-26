@@ -26,4 +26,10 @@ public class UsuarioDAO {
 	public void remove(Usuario usuario) {
 		this.session.delete(usuario);
 	}
+	public Usuario procuraPorId(Long id) {
+		return (Usuario) this.session
+			.createCriteria(Usuario.class)
+				.add(Restrictions.eq("id", id))
+			.uniqueResult();
+	} 
 }

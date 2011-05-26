@@ -43,13 +43,19 @@ public class Biblioteca {
 	}
 	public void emprestaLivro(Livro livro, Usuario usuario, Calendar dataDeEmprestimo) throws SQLException{
 		Emprestimo emprestimo = new Emprestimo();
+		
+		livro.setEmprestado(true);
+		
 		emprestimo.setLivro(livro);
 		emprestimo.setUsuario(usuario);
 		emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
+		
 		emprestimoDAO.salva(emprestimo);
 	}	
 	public void recebeLivro(Long id, Calendar dataDaDevolucao) throws SQLException{
 		Emprestimo emprestimo = emprestimoDAO.procuraPorId(id);
+		Livro livro = emprestimo.getLivro();
+		livro.setEmprestado(false);
 		emprestimo.setDataDeDevolucao(dataDaDevolucao);
 		emprestimoDAO.atualiza(emprestimo);
 	}
@@ -61,5 +67,11 @@ public class Biblioteca {
 	}
 	public List<Emprestimo> pesquisaEmprestimoPorLivro(String nomeDoLivro) throws IOException, SQLException{
 		return emprestimoDAO.procuraPorLivro(nomeDoLivro);
+	}
+	public Usuario pesquisaUsuarioPorID(Long id){
+		return usuarioDAO.procuraPorId(id);
+	}
+	public Livro pesquisaLivroPorID(Long id) {
+		return livroDAO.procuraPorId(id);
 	}
 }

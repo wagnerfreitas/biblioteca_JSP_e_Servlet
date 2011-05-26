@@ -38,7 +38,7 @@ public class DevolveLivroServlet extends HttpServlet{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/adicionado.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/devolvelivro.jsp");
 		rd.forward(req, resp);
 	}
 }
