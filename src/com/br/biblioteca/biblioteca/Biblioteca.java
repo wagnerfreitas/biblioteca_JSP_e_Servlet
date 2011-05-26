@@ -43,13 +43,10 @@ public class Biblioteca {
 	}
 	public void emprestaLivro(Livro livro, Usuario usuario, Calendar dataDeEmprestimo) throws SQLException{
 		Emprestimo emprestimo = new Emprestimo();
-		
 		livro.setEmprestado(true);
-		
 		emprestimo.setLivro(livro);
 		emprestimo.setUsuario(usuario);
 		emprestimo.setDataDeEmprestimo(dataDeEmprestimo);
-		
 		emprestimoDAO.salva(emprestimo);
 	}	
 	public void recebeLivro(Long id, Calendar dataDaDevolucao) throws SQLException{

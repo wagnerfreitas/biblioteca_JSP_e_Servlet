@@ -28,7 +28,6 @@
 				});
 			});
 		</script>
-		
 	</head>
 	<style>
 		#emprestarLivro {

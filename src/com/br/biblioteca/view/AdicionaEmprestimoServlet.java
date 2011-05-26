@@ -35,15 +35,13 @@ public class AdicionaEmprestimoServlet extends HttpServlet{
 		} catch (ParseException e) {
 			System.out.println("Erro na conversão da data");
 		}
-		
 		Biblioteca biblioteca = new Biblioteca();
 		Usuario usuario = biblioteca.pesquisaUsuarioPorID(usuario_id);
 		Livro livro = biblioteca.pesquisaLivroPorID(livro_id);
-		
 		try {
 			biblioteca.emprestaLivro(livro, usuario, dataDeEmprestimo);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Erro ao emprestar livro");
 		}
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/adicionado.jsp");
