@@ -13,8 +13,9 @@
 	<head>
 		<title>Lista de Livros</title>
 		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
-		<script type="text/javascript" src = "js/jquery-ui-1.8.13.custom.min.js"></script>
-		<script type="text/javascript" src="js/jquery.ui.datepicker-pt-BR.js"></script>  
+		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
+		
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('.emprestar').click(function() {
@@ -33,7 +34,6 @@
 				$('.calendario').datepicker($.datepicker.regional['fr']);
 			});
 		</script>
-		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
 		<style>
 			#emprestarLivro {
 				display: none;

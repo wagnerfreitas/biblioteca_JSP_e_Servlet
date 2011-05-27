@@ -11,8 +11,9 @@
 <html>
 	<head>
 		<title>Lista de Empréstimos</title>
-		<script type="text/javascript" src="js/jquery-1.5.2.min.js">
-		</script>
+		<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" />
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('.devolver').click(function() {
@@ -20,6 +21,7 @@
 					var text = $(this).parent().parent().children(':nth-child(2)').text()
 					$('#IDEmprestimo').val(text);
 				});
+				$('.dataDeEntrega').datepicker($.datepicker.regional['fr']);
 			});
 		</script>
 		<style type="text/css">
@@ -69,7 +71,7 @@
 							Digite a Data de Entrega: 
 						</td>
 						<td>
-							<input type="text" name="dataDeEntrega" />
+							<input type="text" class="dataDeEntrega" name="dataDeEntrega" />
 						</td>
 					</tr>
 					<tr>
