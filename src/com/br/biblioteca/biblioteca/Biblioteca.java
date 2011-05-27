@@ -56,6 +56,7 @@ public class Biblioteca {
 		emprestimo.setDataDeDevolucao(dataDaDevolucao);
 		emprestimoDAO.atualiza(emprestimo);
 	}
+	
 	public List<Usuario> pesquisarUsuarios(String pesquisaPorNome) throws IOException, SQLException{
 		return usuarioDAO.procura(pesquisaPorNome);
 	}
@@ -64,6 +65,9 @@ public class Biblioteca {
 	}
 	public List<Emprestimo> pesquisaEmprestimoPorLivro(String nomeDoLivro) throws IOException, SQLException{
 		return emprestimoDAO.procuraPorLivro(nomeDoLivro);
+	}
+	public Emprestimo pesquisaEmprestimoPorID(Long id){
+		return emprestimoDAO.procuraPorId(id);
 	}
 	public Usuario pesquisaUsuarioPorID(Long id){
 		return usuarioDAO.procuraPorId(id);
