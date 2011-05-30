@@ -45,7 +45,6 @@
 					    $("#retornoUsuarios").dialog({ width: 600 } ,{ title: 'Usuários' });
 					    $("#usuariosList").find("tr").click(function() {
 					    	$("#IDUsuario").val($(this).children(':nth-child(2)').text());
-					    	$("#retornoUsuarios").empty();
 					    });
 					  }
 					});
@@ -115,7 +114,6 @@
 				<h1>
 					Emprestar livro
 				</h1>
-				<form action="" method="post">
 				<table>
 					<tr>
 						<td>Pesquisar usuário: </td><td><input type="text" name="pesquisausuario" id="pesquisausuarioNome" /></td>
@@ -125,26 +123,6 @@
 				<div id="retornoUsuarios">
 				
 				</div>
-			</form>
-				<% if (request.getParameter("pesquisausuario") != null) { %>
-				<div id="resultado">
-					<table>
-						<% 
-							String pesquisa = request.getParameter("pesquisausuario");
-							List<Usuario> usuarios =  biblioteca.pesquisarUsuarios(pesquisa);					
-		
-							for (Usuario usuario : usuarios) {
-						%>
-						<tr>
-							<td>- ID: </td>
-							<td style="width:150px"><%=usuario.getId() %></td>
-							<td>- Nome: </td>
-							<td style="width:220px"><%=usuario.getNome() %></td>
-						</tr>
-						<% } %>
-					</table>
-				</div>
-			<% 	} %>
 			<form method="post" action="adicionaemprestimo">
 				<table>
 					<tr>
