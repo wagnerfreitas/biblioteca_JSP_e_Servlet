@@ -35,7 +35,7 @@
 				});
 				$('.calendario').datepicker();
 				
-				$('#resultado').dialog({ width: 600 });
+				$('#resultado').dialog({ width: 600 } ,{ title: 'Usuários' });
 			});
 		</script>
 		<style>
@@ -71,8 +71,8 @@
 				for (Livro livro : livros) {
 			%>
 			<tr>
-				<td>- ID:</td>
-				<td style="width:150px"><%=livro.getId()%></td>
+				<td style="display: none">- ID:</td>
+				<td style="width:150px; display: none"><%=livro.getId()%></td>
 				<td> - Nome: </td>
 				<td style="width:220px"><%=livro.getNome()%></td>
 				<td> - Autor: </td><td><%=livro.getAutor()%></td>
@@ -87,16 +87,43 @@
 				<input type="button" value="Emprestar" class="emprestar" /></td>
 				<%
 					}
-					}
+				}
 				%>
 			</tr>
 		</table>
 		<a href="index.jsp">Voltar</a>
 		<div id="emprestarLivro">
-			<form method="post" action="adicionaemprestimo">
 				<h1>
 					Emprestar livro
 				</h1>
+				<form action="" method="post">
+				<table>
+					<tr>
+						<td>Pesquisar usuário: </td><td><input type="text" name="pesquisausuario" /></td>
+						<td><input type="submit" class="enviar" value="Pesquisar" /></td>
+					</tr>
+				</table>
+			</form>
+				<% if (request.getParameter("pesquisausuario") != null) { %>
+				<div id="resultado">
+					<table>
+						<% 
+							String pesquisa = request.getParameter("pesquisausuario");
+							List<Usuario> usuarios =  biblioteca.pesquisarUsuarios(pesquisa);					
+		
+							for (Usuario usuario : usuarios) {
+						%>
+						<tr>
+							<td>- ID: </td>
+							<td style="width:150px"><%=usuario.getId() %></td>
+							<td>- Nome: </td>
+							<td style="width:220px"><%=usuario.getNome() %></td>
+						</tr>
+						<% } %>
+					</table>
+				</div>
+			<% } %>
+			<form method="post" action="adicionaemprestimo">
 				<table>
 					<tr>
 						<td>
@@ -127,30 +154,7 @@
 					</tr>
 				</table>
 			</form>
-			<form action="" method="post">
-				Pesquisar usuário: <input type="text" name="pesquisausuario" />
-				<input type="submit" class="enviar" value="Enviar" />
-			</form>
-				<% if (request.getParameter("pesquisausuario") != null) { %>
-				<div id="resultado">
-					<table>
-						<% 
-							String pesquisa = request.getParameter("pesquisausuario");
-							List<Usuario> usuarios =  biblioteca.pesquisarUsuarios(pesquisa);					
-		
-							for (Usuario usuario : usuarios) {
-								out.println("<tr>");
-								out.println("<td>- ID:</td>" + "<td style=\"width:150px\">"
-										+ usuario.getId() + "</td>" + "<td> - Nome: </td>"
-										+ "<td style=\"width:220px\">" + usuario.getNome()
-										+ "</td>");
-								out.println("</tr>");
-							}
-						%>
-					</table>
-				</div>
-				<% } %>
-			</div>
+		</div>
 		<div id="devolverLivro">
 			<form method="post" action="devolvelivro">
 			<h1>Devolver Livro</h1>

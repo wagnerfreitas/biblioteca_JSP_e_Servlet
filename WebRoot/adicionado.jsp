@@ -12,6 +12,6 @@
 	</head>
 	<body>
 		 Adicionado com sucesso...<br>
-		 <a href = "index.jsp">Voltar</a>
+		 <a href="javascript: history.go(-1)">Voltar</a>
 	</body>
 </html>

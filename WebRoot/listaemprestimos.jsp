@@ -42,8 +42,8 @@
 					for(Emprestimo emprestimo : emprestimos){
 				%>
 				<tr>
-					<td>- ID:</td>
-					<td style="width:150px"><%=emprestimo.getId()%></td>
+					<td style="display: none">- ID:</td>
+					<td style="width:150px; display: none"><%=emprestimo.getId()%></td>
 					<td> - Nome: </td>
 					<td style="width:220px"><%=emprestimo.getUsuario().getNome()%></td>
 					<td> - Livro: </td><td><%=emprestimo.getLivro().getNome()%></td>

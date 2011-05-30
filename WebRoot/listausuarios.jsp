@@ -15,7 +15,7 @@
 	</head>
 	<body>
 		<h1> 
-			bLista de Usu&aacute;rios 
+			Lista de Usu&aacute;rios 
 		</h1>
 		<table id="tabela">
 			<%
@@ -24,13 +24,14 @@
 					List<Usuario> usuarios =  biblioteca.pesquisarUsuarios(nome);					
 
 					for (Usuario usuario : usuarios) {
-						out.println("<tr>");
-						out.println("<td>- ID:</td>" + "<td style=\"width:150px\">"
-								+ usuario.getId() + "</td>" + "<td> - Nome: </td>"
-								+ "<td style=\"width:220px\">" + usuario.getNome()
-								+ "</td>" + "<td> - Email: </td>" + "<td>"
-								+ usuario.getEmail() + "</td>");
-						out.println("</tr>");
+			%>
+			<tr>
+				<td> - Nome: </td>
+				<td style="width:220px"><%=usuario.getNome() %></td>
+				<td> - Email: </td>
+				<td><%=usuario.getEmail() %></td>
+			</tr>
+			<%
 					}
 			%>
 		</table>

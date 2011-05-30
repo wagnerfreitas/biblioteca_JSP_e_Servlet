@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<a href="index.jsp">Home</a><br/>	
-  	Aconteceu um erro.
+  	<a href="javascript: history.go(-1)">Voltar</a><br/>	
+  	Aconteceu um erro...
   </body>
 </html>
