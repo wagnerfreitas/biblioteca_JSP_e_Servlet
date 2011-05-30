@@ -29,16 +29,17 @@ public class DevolveLivroServlet extends HttpServlet{
 			Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dataEmTexto);
 			dataDeEntrega = Calendar.getInstance();
 			dataDeEntrega.setTime(data);
+			Biblioteca biblioteca = new Biblioteca();
+			try {
+				biblioteca.recebeLivro(id, dataDeEntrega);
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			RequestDispatcher rd = req.getRequestDispatcher("/devolvelivro.jsp");
+			rd.forward(req, resp);
+			
 		} catch (ParseException e) {
-			System.out.println("Erro na conversão da data");
+			throw new RuntimeException(e);
 		}
-		Biblioteca biblioteca = new Biblioteca();
-		try {
-			biblioteca.recebeLivro(id, dataDeEntrega);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		RequestDispatcher rd = req.getRequestDispatcher("/devolvelivro.jsp");
-		rd.forward(req, resp);
 	}
 }
