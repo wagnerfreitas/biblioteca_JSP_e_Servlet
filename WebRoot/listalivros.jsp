@@ -30,12 +30,27 @@
 				$('.devolver').click(function() {
 					$('#emprestarLivro').hide();
 					$('#devolverLivro').show();
-					var text = $(this).parent().parent().children(':nth-child(1)').text()
+					var text = $(this).parent().parent().children(':nth-child(7)').text()
 					$('#IDLivro_devolver').val(text);
 				});
 				$('.calendario').datepicker();
 				
-				$('#resultado').dialog({ width: 600 } ,{ title: 'Usuários' });
+				$("#pesquisarUsuario").click(function() {
+					$.ajax({
+					  url: "listausuarioajax.jsp",
+					  data: "pesquisarUsuario=" + $("#pesquisausuarioNome").val(),
+					  type: 'POST',
+					  success: function(dados){
+					    $("#retornoUsuarios").html(dados);
+					    $("#retornoUsuarios").dialog({ width: 600 } ,{ title: 'Usuários' });
+					    $("#usuariosList").find("tr").click(function() {
+					    	$("#IDUsuario").val($(this).children(':nth-child(2)').text());
+					    	$("#retornoUsuarios").empty();
+					    });
+					  }
+					});
+				});
+				
 			});
 		</script>
 		<style>
@@ -61,18 +76,10 @@
 			Lista de Livros
 		</h1>
 		<table>
+			<tr>
 			<%
 				String nome = request.getParameter("pesquisarLivro");
 				Biblioteca biblioteca = new Biblioteca();
-				List<Emprestimo> emprestimos = biblioteca.pesquisaEmprestimoPorLivro(nome);
-				for(Emprestimo emprestimo : emprestimos){
-			%>
-			<tr>
-				<td style="display: none"><%=emprestimo.getId() %></td>
-			<% 	
-				} 
-			%>
-			<%
 				List<Livro> livros = biblioteca.pesquisarLivro(nome);
 				for (Livro livro : livros) {
 			%>
@@ -81,20 +88,27 @@
 				<td> - Nome: </td>
 				<td style="width:220px"><%=livro.getNome()%></td>
 				<td> - Autor: </td><td><%=livro.getAutor()%></td>
-				<td>
 				<%
 					if (livro.isEmprestado()) {
+						List<Emprestimo> emprestimos = biblioteca.pesquisaEmprestimoPorLivro(livro.getNome());
+						for(Emprestimo emprestimo : emprestimos){
 				%>
-					<input type="button" value="Devolver"  class="devolver"/>
+				<td style="display: none"><%=emprestimo.getId() %></td>
+				<% 	
+					} 
+				%>
+					<td><input type="button" value="Devolver"  class="devolver"/></td>
 				<%
 					} else {
 				%>
-				<input type="button" value="Emprestar" class="emprestar" /></td>
+					<td><input type="button" value="Emprestar" class="emprestar" /></td>
 				<%
 					}
-				}
 				%>
-			</tr>
+					</tr>
+				<%
+					}
+				%>
 		</table>
 		<a href="index.jsp">Voltar</a>
 		<div id="emprestarLivro">
@@ -104,10 +118,13 @@
 				<form action="" method="post">
 				<table>
 					<tr>
-						<td>Pesquisar usuário: </td><td><input type="text" name="pesquisausuario" /></td>
-						<td><input type="submit" class="enviar" value="Pesquisar" /></td>
+						<td>Pesquisar usuário: </td><td><input type="text" name="pesquisausuario" id="pesquisausuarioNome" /></td>
+						<td><input type="button" class="enviar" id="pesquisarUsuario" value="Pesquisar" /></td>
 					</tr>
 				</table>
+				<div id="retornoUsuarios">
+				
+				</div>
 			</form>
 				<% if (request.getParameter("pesquisausuario") != null) { %>
 				<div id="resultado">
@@ -140,7 +157,7 @@
 							Digite o ID do usuário:
 						</td>
 						<td>
-							<input type="text" name="IDUsuario" />
+							<input type="text" name="IDUsuario" id="IDUsuario" />
 						</td>
 					</tr>
 					<tr>
