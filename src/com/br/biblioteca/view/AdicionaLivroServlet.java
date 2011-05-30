@@ -18,13 +18,22 @@ public class AdicionaLivroServlet extends HttpServlet{
 		Livro livro = new Livro();
 		String nome = req.getParameter("nomeLivro");
 		String autor = req.getParameter("autor");
-		livro.setNome(nome);
-		livro.setAutor(autor);
-		
-		Biblioteca biblioteca = new Biblioteca();
-		biblioteca.cadastraLivro(nome, autor);
-		
-		RequestDispatcher rd = req.getRequestDispatcher("/adicionado.jsp");
-		rd.forward(req, resp);
+		try {
+			if(nome.equals("") || autor.equals("")){
+				throw new RuntimeException();
+			}else{
+				livro.setNome(nome);
+				livro.setAutor(autor);
+				
+				Biblioteca biblioteca = new Biblioteca();
+				biblioteca.cadastraLivro(nome, autor);
+				
+				RequestDispatcher rd = req.getRequestDispatcher("/adicionado.jsp");
+				rd.forward(req, resp);
+			}
+		} catch (Exception e) {
+			RequestDispatcher rd = req.getRequestDispatcher("/erro.jsp");
+			rd.forward(req, resp);
+		}
 	}
 }
