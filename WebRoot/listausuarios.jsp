@@ -14,10 +14,10 @@
 		<title>Lista de Usuários</title>
 	</head>
 	<body>
-		<h1>
-			Lista de Usuários
+		<h1> 
+			bLista de Usu&aacute;rios 
 		</h1>
-		<table>
+		<table id="tabela">
 			<%
 					String nome = request.getParameter("pesquisarUsuario");
 					Biblioteca biblioteca = new Biblioteca(); 

@@ -2,6 +2,7 @@
 <%@page import="com.br.biblioteca.entidades.Livro"%>
 <%@page import="com.br.biblioteca.biblioteca.Biblioteca"%>
 <%@page import="com.br.biblioteca.entidades.Emprestimo"%>
+<%@page import="com.br.biblioteca.entidades.Usuario"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -32,7 +33,9 @@
 					var text = $(this).parent().parent().children(':nth-child(2)').text()
 					$('#IDLivro_devolver').val(text);
 				});
-				$('.calendario').datepicker($.datepicker.regional['fr']);
+				$('.calendario').datepicker();
+				
+				$('#resultado').dialog({ width: 600 });
 			});
 		</script>
 		<style>
@@ -49,6 +52,10 @@
 			.devolver{
 				width: 90px;
 			}
+			#teste{
+				display:none;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -93,10 +100,7 @@
 				<table>
 					<tr>
 						<td>
-							ID do livro:
-						</td>
-						<td>
-							<input type="text" name="IDLivro" readonly id="IDLivro" />
+							<input type="hidden" name="IDLivro" id="IDLivro" />
 						</td>
 					</tr>
 					<tr>
@@ -123,7 +127,30 @@
 					</tr>
 				</table>
 			</form>
-		</div>
+			<form action="" method="post">
+				Pesquisar usuário: <input type="text" name="pesquisausuario" />
+				<input type="submit" class="enviar" value="Enviar" />
+			</form>
+				<% if (request.getParameter("pesquisausuario") != null) { %>
+				<div id="resultado">
+					<table>
+						<% 
+							String pesquisa = request.getParameter("pesquisausuario");
+							List<Usuario> usuarios =  biblioteca.pesquisarUsuarios(pesquisa);					
+		
+							for (Usuario usuario : usuarios) {
+								out.println("<tr>");
+								out.println("<td>- ID:</td>" + "<td style=\"width:150px\">"
+										+ usuario.getId() + "</td>" + "<td> - Nome: </td>"
+										+ "<td style=\"width:220px\">" + usuario.getNome()
+										+ "</td>");
+								out.println("</tr>");
+							}
+						%>
+					</table>
+				</div>
+				<% } %>
+			</div>
 		<div id="devolverLivro">
 			<form method="post" action="devolvelivro">
 			<h1>Devolver Livro</h1>

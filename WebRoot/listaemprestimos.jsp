@@ -61,10 +61,7 @@
 				<table>
 					<tr>
 						<td>
-							ID do Empréstimo: 
-						</td>
-						<td>
-							<input type="text" readonly id="IDEmprestimo" name="IDEmprestimo" />
+							<input type="hidden" id="IDEmprestimo" name="IDEmprestimo" />
 						</td>
 					</tr>
 					<tr>
