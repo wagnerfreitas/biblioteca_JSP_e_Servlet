@@ -20,7 +20,7 @@ public class AdicionaUsuarioServlet extends HttpServlet {
 		String email = req.getParameter("email");
 			try {
 				if (nome.equals("") || email.equals("")){
-					throw new RuntimeException();
+					throw new RuntimeException("Nome ou email nulos");
 				}else{
 					usuario.setNome(nome);
 					usuario.setEmail(email);

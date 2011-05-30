@@ -30,7 +30,7 @@
 				$('.devolver').click(function() {
 					$('#emprestarLivro').hide();
 					$('#devolverLivro').show();
-					var text = $(this).parent().parent().children(':nth-child(2)').text()
+					var text = $(this).parent().parent().children(':nth-child(1)').text()
 					$('#IDLivro_devolver').val(text);
 				});
 				$('.calendario').datepicker();
@@ -45,7 +45,6 @@
 			#devolverLivro{
 				display:none;
 			}
-		
 			.emprestar {
 				width: 90px;
 			}
@@ -55,7 +54,6 @@
 			#teste{
 				display:none;
 			}
-			
 		</style>
 	</head>
 	<body>
@@ -65,12 +63,19 @@
 		<table>
 			<%
 				String nome = request.getParameter("pesquisarLivro");
-				String id = request.getParameter("IDLivro");
 				Biblioteca biblioteca = new Biblioteca();
+				List<Emprestimo> emprestimos = biblioteca.pesquisaEmprestimoPorLivro(nome);
+				for(Emprestimo emprestimo : emprestimos){
+			%>
+			<tr>
+				<td style="display: none"><%=emprestimo.getId() %></td>
+			<% 	
+				} 
+			%>
+			<%
 				List<Livro> livros = biblioteca.pesquisarLivro(nome);
 				for (Livro livro : livros) {
 			%>
-			<tr>
 				<td style="display: none">- ID:</td>
 				<td style="width:150px; display: none"><%=livro.getId()%></td>
 				<td> - Nome: </td>
@@ -122,7 +127,7 @@
 						<% } %>
 					</table>
 				</div>
-			<% } %>
+			<% 	} %>
 			<form method="post" action="adicionaemprestimo">
 				<table>
 					<tr>
@@ -161,10 +166,7 @@
 				<table>
 					<tr>
 						<td>
-							ID do Livro: 
-						</td>
-						<td>
-							<input type="text" readonly id="IDLivro_devolver" name="IDEmprestimo" />
+							<input type="hidden" id="IDLivro_devolver" name="IDEmprestimo" />
 						</td>
 					</tr>
 					<tr>

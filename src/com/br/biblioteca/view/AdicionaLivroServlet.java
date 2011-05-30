@@ -20,7 +20,7 @@ public class AdicionaLivroServlet extends HttpServlet{
 		String autor = req.getParameter("autor");
 		try {
 			if(nome.equals("") || autor.equals("")){
-				throw new RuntimeException();
+				throw new RuntimeException("Nome ou autor nulos");
 			}else{
 				livro.setNome(nome);
 				livro.setAutor(autor);
