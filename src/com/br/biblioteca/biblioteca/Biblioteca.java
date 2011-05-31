@@ -56,7 +56,11 @@ public class Biblioteca {
 		emprestimo.setDataDeDevolucao(dataDaDevolucao);
 		emprestimoDAO.atualiza(emprestimo);
 	}
-	
+	public void deleteUsuario(Long id){
+		Usuario usuario = usuarioDAO.procuraPorId(id);
+		usuario.setId(id);
+		usuarioDAO.remove(usuario);
+	}
 	public List<Usuario> pesquisarUsuarios(String pesquisaPorNome) throws IOException, SQLException{
 		return usuarioDAO.procura(pesquisaPorNome);
 	}
@@ -74,10 +78,5 @@ public class Biblioteca {
 	}
 	public Livro pesquisaLivroPorID(Long id) {
 		return livroDAO.procuraPorId(id);
-	}
-	public void deleteUsuario(Long id){
-		Usuario usuario = new Usuario();
-		usuario.setId(id);
-		usuarioDAO.remove(usuario);
 	}
 }

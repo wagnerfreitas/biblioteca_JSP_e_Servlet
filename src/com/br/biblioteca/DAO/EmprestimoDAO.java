@@ -2,6 +2,7 @@ package com.br.biblioteca.DAO;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -15,16 +16,31 @@ public class EmprestimoDAO {
 		this.session = session;
 	}
 	public void salva(Emprestimo emprestimo){
-		this.session.beginTransaction();
-		this.session.save(emprestimo);
-		this.session.getTransaction().commit();
-		this.session.close();
+		try {
+			this.session.beginTransaction();
+			this.session.save(emprestimo);
+			this.session.getTransaction().commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException(e);
+		}finally{
+			if(this.session != null){
+				this.session.close();
+			}
+		}
+		
 	}
 	public void atualiza(Emprestimo emprestimo){
-		this.session.beginTransaction();
-		this.session.update(emprestimo);
-		this.session.getTransaction().commit();
-		this.session.close();
+		try {
+			this.session.beginTransaction();
+			this.session.update(emprestimo);
+			this.session.getTransaction().commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException(e);
+		}finally{
+			if(this.session != null){
+				this.session.close();
+			}
+		}
 	}
 	@SuppressWarnings("unchecked")
 	public List<Emprestimo> procuraPorUsuario(String nomeDoUsuario){

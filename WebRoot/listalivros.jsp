@@ -46,10 +46,17 @@
 					    $("#usuariosList").find("tr").click(function() {
 					    	$("#IDUsuario").val($(this).children(':nth-child(2)').text());
 					    });
-					  }
+					  },
+					  failure: function(){
+					  	$("#retornoUsuarios").dialog("Erro na pesquisa");
+					  } 
 					});
 				});
-				
+				$('#pesquisausuarioNome').keydown(function(event){
+					if(event.keyCode === 13){
+						$('#pesquisarUsuario').click();
+					}
+				});
 			});
 		</script>
 		<style>

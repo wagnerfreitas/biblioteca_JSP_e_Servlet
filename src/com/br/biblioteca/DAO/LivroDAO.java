@@ -2,6 +2,7 @@ package com.br.biblioteca.DAO;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -15,10 +16,17 @@ public class LivroDAO {
 		this.session = session;
 	}
 	public void salva(Livro livro){
-		this.session.beginTransaction();
-		this.session.save(livro);
-		this.session.getTransaction().commit();
-		this.session.close();
+		try {
+			this.session.beginTransaction();
+			this.session.save(livro);
+			this.session.getTransaction().commit();
+		} catch (HibernateException e) {
+			throw new RuntimeException(e);
+		}finally{
+			if(this.session != null){
+				this.session.close();
+			}
+		}
 	}
 	@SuppressWarnings("unchecked")
 	public List<Livro> procuraPorNome(String nomeLivro){
@@ -32,12 +40,29 @@ public class LivroDAO {
 		.uniqueResult();
 	}
 	public void atualiza(Livro livro){
-		this.session.beginTransaction();
-		this.session.update(livro);
-		this.session.getTransaction().commit();
-		this.session.close();
+		try {
+			this.session.beginTransaction();
+			this.session.update(livro);
+			this.session.getTransaction().commit();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}finally{
+			if(this.session != null){
+				this.session.close();
+			}
+		}
 	}
 	public void remove(Livro livro){
-		this.session.delete(livro);
+		try {
+			this.session.beginTransaction();
+			this.session.update(livro);
+			this.session.getTransaction().commit();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}finally{
+			if(this.session != null){
+				this.session.delete(livro);
+			}
+		}
 	}
 }
