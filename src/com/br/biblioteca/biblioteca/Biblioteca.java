@@ -33,6 +33,7 @@ public class Biblioteca {
 		Usuario usuario = new Usuario();
 		usuario.setNome(nome);
 		usuario.setEmail(email);
+		usuario.setUsuarioAtivo(true);
 		usuarioDAO.salva(usuario);
 	}	
 	public void cadastraLivro(String nome, String autor) throws IOException{
@@ -59,7 +60,8 @@ public class Biblioteca {
 	public void deleteUsuario(Long id){
 		Usuario usuario = usuarioDAO.procuraPorId(id);
 		usuario.setId(id);
-		usuarioDAO.remove(usuario);
+		usuario.setUsuarioAtivo(false);
+		usuarioDAO.atualiza(usuario);
 	}
 	public List<Usuario> pesquisarUsuarios(String pesquisaPorNome) throws IOException, SQLException{
 		return usuarioDAO.procura(pesquisaPorNome);

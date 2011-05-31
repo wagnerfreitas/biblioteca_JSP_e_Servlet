@@ -14,6 +14,7 @@ public class Usuario {
 	private Long id;
 	private String nome;
 	private String email;
+	private boolean usuarioAtivo;
 	
 	public String getNome() {
 		return nome;
@@ -32,5 +33,11 @@ public class Usuario {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public boolean isUsuarioAtivo() {
+		return usuarioAtivo;
+	}
+	public void setUsuarioAtivo(boolean usuarioAtivo) {
+		this.usuarioAtivo = usuarioAtivo;
 	}
 }

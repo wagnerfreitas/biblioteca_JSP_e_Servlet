@@ -30,15 +30,19 @@ public class UsuarioDAO {
 	}
 	@SuppressWarnings("unchecked")
 	public List<Usuario> procura(String nome) {
-		List<Usuario> usuarios = this.session.createCriteria(Usuario.class).add(Restrictions.like("nome", "%" + nome + "%")).list();
+		List<Usuario> usuarios = this.session
+		.createCriteria(Usuario.class)
+			.add(Restrictions.isNotNull("usuarioAtivo"))
+			.add(Restrictions.like("nome", "%" + nome + "%"))
+			.list();
 		return usuarios; 
 	}
-	public void remove(Usuario usuario) {
+	public void atualiza(Usuario usuario){
 		try {
 			this.session.beginTransaction();
-			this.session.delete(usuario);
+			this.session.update(usuario);
 			this.session.getTransaction().commit();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}finally{
 			if(this.session != null){

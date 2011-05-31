@@ -50,12 +50,12 @@
 				<ul>
 					<li style="display: none"><%=usuario.getId()%></li>
 					<li>- Nome:&nbsp;</li>
-					<li style="width: 220px"><%=usuario.getNome()%></li>
+					<li style="width: 200px"><%=usuario.getNome()%></li>
 					<li>- Email:&nbsp;</li>
 					<li><%=usuario.getEmail()%></li>
 				</ul>
 				<ul>
-					<li class="direita"> 
+					<li class="direita">
 						<input type="hidden" class="deletausuario" name="deletausuario"	value="<%=usuario.getId()%>" />
 						<input type="submit" class="enviar" value="Deletar" />
 					</li>

@@ -50,7 +50,7 @@ public class EmprestimoDAO {
 	public List<Emprestimo> procuraPorLivro(String nomeDoLivro) {
 		List<Emprestimo> emprestimos = this.session
 			.createCriteria(Emprestimo.class)
-				.add(Restrictions.isNull("dataDeDevolucao"))
+				.add(Restrictions.isNotNull("dataDeDevolucao"))
 			.createCriteria("livro")
 				.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
 			.list();
