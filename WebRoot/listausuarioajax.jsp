@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	%>
 	<tr>
 		<td>- ID: </td>
-		<td><%=usuario.getId()%></td>
+		<td style="width: 130px"><%=usuario.getId()%></td>
 		<td>- Nome: </td>
 		<td><%=usuario.getNome() %></td>
 	</tr>

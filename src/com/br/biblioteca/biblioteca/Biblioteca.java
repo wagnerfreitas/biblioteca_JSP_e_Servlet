@@ -75,4 +75,9 @@ public class Biblioteca {
 	public Livro pesquisaLivroPorID(Long id) {
 		return livroDAO.procuraPorId(id);
 	}
+	public void deleteUsuario(Long id){
+		Usuario usuario = new Usuario();
+		usuario.setId(id);
+		usuarioDAO.remove(usuario);
+	}
 }

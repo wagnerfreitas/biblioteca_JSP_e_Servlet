@@ -96,7 +96,7 @@
 				<% 	
 					} 
 				%>
-					<td><input type="button" value="Devolver"  class="devolver"/></td>
+					<td><input type="button" value="Devolver"  class="devolver" /></td>
 				<%
 					} else {
 				%>

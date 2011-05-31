@@ -24,7 +24,10 @@ public class UsuarioDAO {
 		return (List<Usuario>) this.session.createCriteria(Usuario.class).add(Restrictions.like("nome", "%" + nome + "%")).list();
 	}
 	public void remove(Usuario usuario) {
+		this.session.beginTransaction();
 		this.session.delete(usuario);
+		this.session.getTransaction().commit();
+		this.session.close();
 	}
 	public Usuario procuraPorId(Long id) {
 		return (Usuario) this.session
