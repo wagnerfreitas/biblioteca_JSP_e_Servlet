@@ -7,5 +7,5 @@
 %>
 <script type="text/javascript">
 	alert("Usuário com empréstimo ativo");
-	document.location.href = 'listausuarios.jsp';
+	document.location.href = 'index.jsp';
 </script>
