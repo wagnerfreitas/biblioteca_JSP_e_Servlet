@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.br.biblioteca.entidades.Usuario;
@@ -33,7 +34,8 @@ public class UsuarioDAO {
 		List<Usuario> usuarios = this.session
 		.createCriteria(Usuario.class)
 			.add(Restrictions.like("nome", "%" + nome + "%"))
-			.add(Restrictions.like("usuarioAtivo", true))
+			.add(Restrictions.eq("usuarioAtivo", true))
+			.addOrder(Order.asc("nome"))
 			.list();
 		return usuarios; 
 	}

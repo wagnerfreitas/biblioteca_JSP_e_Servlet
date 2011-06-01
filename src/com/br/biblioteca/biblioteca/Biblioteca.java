@@ -15,6 +15,7 @@ import com.br.biblioteca.DAO.UsuarioDAO;
 import com.br.biblioteca.entidades.Emprestimo;
 import com.br.biblioteca.entidades.Livro;
 import com.br.biblioteca.entidades.Usuario;
+import com.br.biblioteca.excecoes.DeletarUsuarioException;
 
 public class Biblioteca {
 	
@@ -57,11 +58,15 @@ public class Biblioteca {
 		emprestimo.setDataDeDevolucao(dataDaDevolucao);
 		emprestimoDAO.atualiza(emprestimo);
 	}
-	public void deleteUsuario(Long id){
+	public void deleteUsuario(Long id) throws DeletarUsuarioException{
 		Usuario usuario = usuarioDAO.procuraPorId(id);
-		usuario.setId(id);
-		usuario.setUsuarioAtivo(false);
-		usuarioDAO.atualiza(usuario);
+		if(emprestimoDAO.procuraPorIdUsuario(id).equals(id)){
+			throw new DeletarUsuarioException("Usuario com empréstimo ativo");
+		}else{
+			usuario.setId(id);
+			usuario.setUsuarioAtivo(false);
+			usuarioDAO.atualiza(usuario);	
+		}
 	}
 	public List<Usuario> pesquisarUsuarios(String pesquisaPorNome) throws IOException, SQLException{
 		return usuarioDAO.procura(pesquisaPorNome);

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.br.biblioteca.biblioteca.Biblioteca;
+import com.br.biblioteca.excecoes.DeletarUsuarioException;
 
 @SuppressWarnings("serial")
 public class DeletaUsuarioServlet extends HttpServlet{
@@ -18,8 +19,12 @@ public class DeletaUsuarioServlet extends HttpServlet{
 		Long idUsuario = Long.parseLong(deletaUsuario);
 		
 		Biblioteca biblioteca = new Biblioteca();
-		biblioteca.deleteUsuario(idUsuario);
-		
+		try {
+			biblioteca.deleteUsuario(idUsuario);
+		} catch (DeletarUsuarioException e) {
+			RequestDispatcher rd = req.getRequestDispatcher("/usuarioexception.jsp");
+			rd.forward(req, resp);
+		}
 		RequestDispatcher rd = req.getRequestDispatcher("/usuariodeletado.jsp");
 		rd.forward(req, resp);
 	}

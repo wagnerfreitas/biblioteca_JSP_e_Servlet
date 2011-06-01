@@ -50,11 +50,18 @@ public class EmprestimoDAO {
 	public List<Emprestimo> procuraPorLivro(String nomeDoLivro) {
 		List<Emprestimo> emprestimos = this.session
 			.createCriteria(Emprestimo.class)
-				.add(Restrictions.isNotNull("dataDeDevolucao"))
+				.add(Restrictions.isNull("dataDeDevolucao"))
 			.createCriteria("livro")
 				.add(Restrictions.like("nome", "%" + nomeDoLivro + "%"))
 			.list();
 		return emprestimos;
+	}
+	public Emprestimo procuraPorIdUsuario(Long id){
+		return (Emprestimo) this.session
+			.createCriteria(Emprestimo.class)
+				.add(Restrictions.isNull("dataDeDevolucao"))
+				.add(Restrictions.eq("usuario_id", id))
+			.list();	
 	}
 	public Emprestimo procuraPorId(Long id) {
 		return (Emprestimo) this.session
