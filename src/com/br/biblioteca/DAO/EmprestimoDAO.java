@@ -1,5 +1,6 @@
 package com.br.biblioteca.DAO;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -56,12 +57,14 @@ public class EmprestimoDAO {
 			.list();
 		return emprestimos;
 	}
-	public Emprestimo procuraPorIdUsuario(Long id){
-		return (Emprestimo) this.session
+	@SuppressWarnings("unchecked")
+	public Collection<Emprestimo> procuraPorIdUsuario(Long id){
+		Collection<Emprestimo> emprestimos = this.session
 			.createCriteria(Emprestimo.class)
 				.add(Restrictions.isNull("dataDeDevolucao"))
-				.add(Restrictions.eq("usuario_id", id))
-			.list();	
+				.add(Restrictions.eq("usuario.id", id))
+			.list();
+		return emprestimos;
 	}
 	public Emprestimo procuraPorId(Long id) {
 		return (Emprestimo) this.session

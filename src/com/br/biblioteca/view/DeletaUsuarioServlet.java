@@ -21,11 +21,13 @@ public class DeletaUsuarioServlet extends HttpServlet{
 		Biblioteca biblioteca = new Biblioteca();
 		try {
 			biblioteca.deleteUsuario(idUsuario);
+			RequestDispatcher rd = req.getRequestDispatcher("/usuariodeletado.jsp");
+			rd.forward(req, resp);
 		} catch (DeletarUsuarioException e) {
+			e.printStackTrace();
 			RequestDispatcher rd = req.getRequestDispatcher("/usuarioexception.jsp");
 			rd.forward(req, resp);
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/usuariodeletado.jsp");
-		rd.forward(req, resp);
+	
 	}
 }

@@ -3,6 +3,7 @@ package com.br.biblioteca.biblioteca;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -60,13 +61,18 @@ public class Biblioteca {
 	}
 	public void deleteUsuario(Long id) throws DeletarUsuarioException{
 		Usuario usuario = usuarioDAO.procuraPorId(id);
-		if(emprestimoDAO.procuraPorIdUsuario(id).equals(id)){
-			throw new DeletarUsuarioException("Usuario com empréstimo ativo");
-		}else{
-			usuario.setId(id);
-			usuario.setUsuarioAtivo(false);
-			usuarioDAO.atualiza(usuario);	
+			
+		Collection<Emprestimo> emprestimos = emprestimoDAO.procuraPorIdUsuario(id);
+		
+		for (Emprestimo emp : emprestimos) 
+		{
+			if(emp.getUsuario() !=null && usuario.getId() == emp.getUsuario().getId())
+					throw new DeletarUsuarioException("Usuario com empréstimo ativo");
 		}
+			
+		usuario.setId(id);
+		usuario.setUsuarioAtivo(false);
+		usuarioDAO.atualiza(usuario);	
 	}
 	public List<Usuario> pesquisarUsuarios(String pesquisaPorNome) throws IOException, SQLException{
 		return usuarioDAO.procura(pesquisaPorNome);
