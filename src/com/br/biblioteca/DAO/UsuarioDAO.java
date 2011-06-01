@@ -32,8 +32,8 @@ public class UsuarioDAO {
 	public List<Usuario> procura(String nome) {
 		List<Usuario> usuarios = this.session
 		.createCriteria(Usuario.class)
-			.add(Restrictions.isNotNull("usuarioAtivo"))
 			.add(Restrictions.like("nome", "%" + nome + "%"))
+			.add(Restrictions.like("usuarioAtivo", true))
 			.list();
 		return usuarios; 
 	}
