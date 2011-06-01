@@ -15,21 +15,20 @@ import com.br.biblioteca.entidades.Usuario;
 public class AdicionaUsuarioServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		Usuario usuario = new Usuario();
-		String nome = req.getParameter("nomeUsuario");
-		String email = req.getParameter("email");
-			try {
-				if (nome.equals("") || email.equals("")){
-					throw new RuntimeException("Nome ou email nulos");
-				}else{
-					usuario.setNome(nome);
-					usuario.setEmail(email);
-					Biblioteca biblioteca = new Biblioteca();
-					biblioteca.cadastraUsuario(nome, email);
-		
-					RequestDispatcher rd = req.getRequestDispatcher("/adicionado.jsp");
-					rd.forward(req, resp);
-				}
+		String nome = req.getParameter("nomeUsuario").trim();
+		String email = req.getParameter("email").trim();
+		try {
+			if (nome.equals("") || email.equals("")) {
+				throw new RuntimeException("Nome ou email nulos");
+			} else {
+				Usuario usuario = new Usuario();
+				usuario.setNome(nome);
+				usuario.setEmail(email);
+				Biblioteca biblioteca = new Biblioteca();
+				biblioteca.cadastraUsuario(usuario);
+				RequestDispatcher rd = req.getRequestDispatcher("/adicionado.jsp");
+				rd.forward(req, resp);
+			}
 		} catch (Exception e) {
 			RequestDispatcher rd = req.getRequestDispatcher("/erro.jsp");
 			rd.forward(req, resp);

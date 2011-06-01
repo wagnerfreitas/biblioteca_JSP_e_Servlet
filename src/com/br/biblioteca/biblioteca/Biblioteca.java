@@ -31,17 +31,10 @@ public class Biblioteca {
 		emprestimoDAO = new EmprestimoDAO(session);
 		usuarioDAO = new UsuarioDAO(session);
 	}
-	public void cadastraUsuario(String nome, String email) throws IOException{
-		Usuario usuario = new Usuario();
-		usuario.setNome(nome);
-		usuario.setEmail(email);
-		usuario.setUsuarioAtivo(true);
+	public void cadastraUsuario(Usuario usuario) throws IOException{
 		usuarioDAO.salva(usuario);
 	}	
-	public void cadastraLivro(String nome, String autor) throws IOException{
-		Livro livro = new Livro();
-		livro.setNome(nome);
-		livro.setAutor(autor);
+	public void cadastraLivro(Livro livro) throws IOException{
 		livroDAO.salva(livro);
 	}
 	public void emprestaLivro(Livro livro, Usuario usuario, Calendar dataDeEmprestimo) throws SQLException{
@@ -61,15 +54,12 @@ public class Biblioteca {
 	}
 	public void deleteUsuario(Long id) throws DeletarUsuarioException{
 		Usuario usuario = usuarioDAO.procuraPorId(id);
-			
 		Collection<Emprestimo> emprestimos = emprestimoDAO.procuraPorIdUsuario(id);
-		
 		for (Emprestimo emp : emprestimos) 
 		{
 			if(emp.getUsuario() !=null && usuario.getId() == emp.getUsuario().getId())
 					throw new DeletarUsuarioException("Usuario com empréstimo ativo");
 		}
-			
 		usuario.setId(id);
 		usuario.setUsuarioAtivo(false);
 		usuarioDAO.atualiza(usuario);	

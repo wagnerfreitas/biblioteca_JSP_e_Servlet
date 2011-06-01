@@ -17,6 +17,7 @@ public class UsuarioDAO {
 	}
 	public void salva(Usuario usuario) {
 		try {
+			usuario.setUsuarioAtivo(true);
 			this.session.beginTransaction();
 			this.session.save(usuario);
 			this.session.getTransaction().commit();

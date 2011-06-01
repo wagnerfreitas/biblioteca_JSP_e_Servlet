@@ -28,7 +28,6 @@ public class EmprestimoDAO {
 				this.session.close();
 			}
 		}
-		
 	}
 	public void atualiza(Emprestimo emprestimo){
 		try {
