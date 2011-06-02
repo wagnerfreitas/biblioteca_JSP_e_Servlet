@@ -37,7 +37,6 @@ public class DevolveLivroServlet extends HttpServlet{
 			}
 			RequestDispatcher rd = req.getRequestDispatcher("/devolvelivro.jsp");
 			rd.forward(req, resp);
-			
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}

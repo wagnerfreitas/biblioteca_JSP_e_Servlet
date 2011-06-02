@@ -22,7 +22,7 @@ public class AdicionaEmprestimoServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String idLivro = req.getParameter("IDLivro");
+		String idLivro = req.getParameter("IDLivro").trim();
 		String idUsuario = req.getParameter("IDUsuario");
 		String dataEmTexto = req.getParameter("dataDeEmprestimo");
 		Calendar dataDeEmprestimo = null;
@@ -41,7 +41,6 @@ public class AdicionaEmprestimoServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("Erro ao emprestar livro");
 			}
-
 			RequestDispatcher rd = req.getRequestDispatcher("/adicionado.jsp");
 			rd.forward(req, resp);
 		} catch (ParseException e) {
